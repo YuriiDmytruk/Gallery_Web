@@ -18,8 +18,8 @@ const NavBar = (props: NavBarProps) => {
     <div
       className={
         props.active
-          ? 'navbar absolute z-50 bg-primary mx-auto rounded-lg mt-3 max-w-[90%] animation'
-          : 'navbar absolute z-50 bg-primary mx-auto mt-0 max-w-[100%]'
+          ? 'navbar  z-50 bg-primary mx-auto rounded-lg mt-3 max-w-[90%] animation'
+          : 'navbar  z-50 bg-primary mx-auto mt-0 max-w-[100%]'
       }
     >
       <div className="flex-1">
