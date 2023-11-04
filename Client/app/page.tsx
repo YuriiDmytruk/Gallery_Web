@@ -1,17 +1,55 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { getImages } from './util/api';
 
-export default function Home() {
+import ImageCarousel from './components/ImageCarousel';
+
+const Home = async () => {
+  const images = await getImages('', '20');
+  console.log(images);
+
   return (
-    <div className='z-0 absolute w-[100%] h-[100%]'>
-      <div className='z-20 absolute w-[100%] h-[100%] bg-black bg-opacity-50'></div>
-      <div className="w-[60%] h-[50%] bg-red-400 absolute top-0 right-0 z-0"></div>
-      <div className="w-[60%] h-[50%] bg-red-500 absolute top-0 left-0 z-0"></div>
-      <div className="w-[60%] h-[50%] bg-red-600 absolute bottom-0 left-0 z-0"></div>
-      <div className="w-[60%] h-[50%] bg-red-700 absolute bottom-0 right-0 z-0"></div>
-      <div className="w-[100%] h-[100%] absolute flex justify-center items-center z-10">
-        <div className="w-[30vw] h-[30vw] bg-red-800 absolute m-auto rounded-full"></div>
+    <div className="z-0 fixed w-[100%] h-[100%] top-0 left-0">
+      <div className="z-20 fixed w-[100%] h-[100%] bg-black bg-opacity-60"></div>
+
+      <div className="w-[60%] h-[50%] fixed top-0 right-0 z-0">
+        <ImageCarousel
+          time={3000}
+          images={images.map((image: any) => image.url)}
+          classNames=''
+        />
+      </div>
+
+      <div className="w-[60%] h-[50%] fixed top-0 left-0 z-0">
+        <ImageCarousel
+          time={5000}
+          images={images.map((image: any) => image.url)}
+          classNames=''
+        />
+      </div>
+      <div className="w-[60%] h-[50%] fixed bottom-0 left-0 z-0">
+        <ImageCarousel
+          time={4000}
+          images={images.map((image: any) => image.url)}
+          classNames=''
+        />
+      </div>
+      <div className="w-[60%] h-[50%] fixed bottom-0 right-0 z-0">
+        <ImageCarousel
+          time={3500}
+          images={images.map((image: any) => image.url)}
+          classNames=''
+        />
+      </div>
+      <div className="w-[100%] h-[100%] fixed flex justify-center items-center z-10">
+        <div className="w-[30vw] h-[30vw] fixed m-auto">
+          <ImageCarousel
+            time={6000}
+            images={images.map((image: any) => image.url)}
+            classNames='rounded-full'
+          />
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default Home;

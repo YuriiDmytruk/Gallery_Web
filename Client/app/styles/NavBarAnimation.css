@@ -1,6 +1,7 @@
 .animation {
-    transition-duration: 1000ms;
-    transition-property: margin, max-width;
-    margin-top: 20px;
-    max-width: 90%;
-  }
+  transition-duration: 1000ms;
+  transition-property: margin, max-width, left;
+  margin-top: 20px;
+  max-width: 90%;
+  left: 5%;
+}

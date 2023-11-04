@@ -15,11 +15,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [active, setActive] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <html lang="en" data-theme="custom" className='bg-neutral'>
+    <html lang="en" data-theme="custom" className="bg-neutral">
       <body className={inter.className}>
-        <NavBar active={active} setActive={setActive} />
+        <NavBar
+          active={active}
+          setActive={setActive}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
         {children}
       </body>
     </html>
