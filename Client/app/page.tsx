@@ -2,9 +2,10 @@ import { getImages } from './util/api';
 
 import ImageCarousel from './components/ImageCarousel';
 
+import {ImageType} from './types'
+
 const Home = async () => {
-  const images = await getImages('', '20');
-  console.log(images);
+  const images = (await getImages('', '20')).value as ImageType[];
 
   return (
     <div className="z-0 fixed w-[100%] h-[100%] top-0 left-0">

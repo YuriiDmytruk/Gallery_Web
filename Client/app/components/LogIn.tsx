@@ -1,30 +1,30 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 
 import { putUser } from '../util/api';
+import { addUser } from '../redux/ducks/user';
+import { UserType } from '../types';
 
 interface LogInProps {
   closeModal: () => void;
-  setActive: (value: boolean) => void;
 }
 
 const LogIn = (props: LogInProps) => {
-
-  const router = useRouter();
-
   const [user, setUser] = useState({
     email: 'yuriydmytrukr@gmail.com',
     password: '1111',
   });
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const onLogInClick = async () => {
     const response = await putUser(user);
+    const loggedInUser = response.value as UserType;
     if (response !== null) {
-      console.log(response);
-      sessionStorage.setItem('USER', JSON.stringify(response.statusCode));
-      router.replace('/galery')
-      props.setActive(true);
+      dispatch(addUser(loggedInUser));
+      router.replace('/gallery');
     } else {
       alert('Wrong password or email');
     }
