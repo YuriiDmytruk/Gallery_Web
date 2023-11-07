@@ -28,6 +28,7 @@ type ImageType = {
   description: string;
   createdAt: string;
   updatedAt: string;
+  score: number;
   __v: number;
 };
 

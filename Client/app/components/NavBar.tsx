@@ -20,8 +20,6 @@ const NavBar = (props: NavBarProps) => {
   const router = useRouter();
   const pathname = usePathname()
 
-  console.log(pathname === '/')
-
   const userId = useSelector((state: UserType) => state._id);
   const active = !(userId === '');
 

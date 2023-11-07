@@ -8,7 +8,7 @@ const getImages = async (userId: string, amount: string): Promise<ResponseType> 
       URL + `images/?author=${userId}&amount=${amount}`,
       {
         method: 'GET',
-        cache: 'no-store',
+        
       }
     );
     if (response.ok) {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 import ImageCard from './ImageCard'
 
@@ -10,11 +10,20 @@ interface ImageListProps{
     amount: string
 }
 
-const ImageList = async (props: ImageListProps) => {
-  const images = (await getImages(props.userId, props.amount)).value as ImageType[]
+const ImageList = (props: ImageListProps) => {
+  const [images, setImages] = useState<ImageType[]>([])
 
+  useEffect(() => {
+    const fetchImages = async () => {
+      const result = (await getImages(props.userId, props.amount)).value as ImageType[]
+      setImages(result)
+    }
+    fetchImages()
+  }, [props.userId, props.amount])
+
+  console.log("GET IMAGE")
   return (
-    <div>
+    <div className='flex flex-wrap justify-around'>
       {images.map(image => <ImageCard key={image._id} image={image}/>)}
     </div>
   )
