@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname  } from 'next/navigation';
 
 import LogIn from './LogIn';
 
@@ -18,6 +18,9 @@ interface NavBarProps {
 const NavBar = (props: NavBarProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const pathname = usePathname()
+
+  console.log(pathname === '/')
 
   const userId = useSelector((state: UserType) => state._id);
   const active = !(userId === '');
@@ -74,7 +77,7 @@ const NavBar = (props: NavBarProps) => {
           className="btn btn-ghost normal-case text-sm"
           onClick={active ? logOut : openModal}
         >
-          {active ? <span>LogOut</span> : <span>LogIn</span>}
+          {active ? <span>LogOut</span> : (pathname === '/' ? <span>LogIn</span> : <></>)}
         </div>
       </div>
       {props.isModalOpen && <LogIn closeModal={closeModal} />}
