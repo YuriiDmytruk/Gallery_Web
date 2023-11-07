@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
-
-import { ImageType } from '../types';
 import Image from 'next/image';
 
+import { ImageType } from '../types';
+import { putScore } from '../util/api';
+
+
+
 interface ImageCardProps {
+  userId: string;
   image: ImageType;
 }
 
 const ImageCard = (props: ImageCardProps) => {
   const [checked, setChecked] = useState(Math.ceil(props.image.score));
 
+  const disabled = props.userId === props.image.authorId;
+
   const handleRadioChange = (value: number) => {
-    setChecked(value);
+    if (!disabled) {
+      putScore(props.image._id, props.userId, value)
+      setChecked(value);
+    }
   };
 
   return (
@@ -33,7 +42,9 @@ const ImageCard = (props: ImageCardProps) => {
               <input
                 key={index}
                 type="radio"
-                className={`mask mask-star-2 bg-orange-400`}
+                className={`mask mask-star-2 ${
+                  disabled ? 'bg-orange-200' : 'bg-orange-500'
+                }`}
                 onClick={() => handleRadioChange(index)}
                 checked={checked === index}
                 onChange={() => {}}
