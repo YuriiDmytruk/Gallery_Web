@@ -22,8 +22,7 @@ const ImageList = (props: ImageListProps) => {
     };
     fetchImages();
   }, [props.userId, props.amount]);
-
-  console.log('GET IMAGE');
+  
   return (
     <div className="flex flex-wrap justify-around">
       {images.map((image) => (
