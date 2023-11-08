@@ -1,19 +1,67 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'img.freepik.com',
-      'images.ctfassets.net',
-      'media.istockphoto.com',
-      'images.panda.org',
-      'helpx.adobe.com',
-      'www.simplilearn.com',
-      'images.unsplash.com',
-      'images.pexels.com',
-      'image.shutterstock.com',
-      'beingselfish.in',
-      'd3nn873nee648n.cloudfront.net',
-      'www.gettyimages.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.istockphoto.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.panda.org',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'helpx.adobe.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.simplilearn.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.shutterstock.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'beingselfish.in',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd3nn873nee648n.cloudfront.net',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.gettyimages.com',
+        pathname: '**',
+      },
     ],
   },
 };
