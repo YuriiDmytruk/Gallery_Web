@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
@@ -24,7 +23,7 @@ const LogIn = (props: LogInProps) => {
     const loggedInUser = response.value as UserType;
     if (response !== null) {
       dispatch(addUser(loggedInUser));
-      router.replace('/gallery');
+      router.replace(`/gallery/${loggedInUser._id}`);
     } else {
       alert('Wrong password or email');
     }

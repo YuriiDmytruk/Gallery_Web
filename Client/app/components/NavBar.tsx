@@ -21,7 +21,7 @@ const NavBar = (props: NavBarProps) => {
   const pathname = usePathname()
 
   const userId = useSelector((state: UserType) => state._id);
-  const active = !(userId === '');
+  const active = (pathname !== '/')
 
   const logOut = () => {
     dispatch(deleteUser());
@@ -47,7 +47,7 @@ const NavBar = (props: NavBarProps) => {
       >
         <div className="flex-1">
           <Link
-            href={active ? `/gallery` : '/'}
+            href={active ? `/gallery/${userId}` : '/'}
             className="btn btn-ghost normal-case text-xl accent-text"
           >
             My Galery
@@ -55,7 +55,7 @@ const NavBar = (props: NavBarProps) => {
           {active ? (
             <div className="ml-10">
               <Link
-                href="/popular"
+                href="/gallery/popular"
                 className="btn btn-ghost normal-case text-sm"
               >
                 Popular Galery
@@ -75,7 +75,7 @@ const NavBar = (props: NavBarProps) => {
           className="btn btn-ghost normal-case text-sm"
           onClick={active ? logOut : openModal}
         >
-          {active ? <span>LogOut</span> : (pathname === '/' ? <span>LogIn</span> : <></>)}
+          {active ? <span>LogOut</span> : <span>LogIn</span>}
         </div>
       </div>
       {props.isModalOpen && <LogIn closeModal={closeModal} />}
