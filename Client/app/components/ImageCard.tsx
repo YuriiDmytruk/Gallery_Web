@@ -1,24 +1,26 @@
+"use client"
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Image from 'next/image';
 
-import { ImageType } from '../types';
+import { ImageType, UserType } from '../types';
 import { putScore } from '../util/api';
 
 
 
 interface ImageCardProps {
-  userId: string;
   image: ImageType;
 }
 
 const ImageCard = (props: ImageCardProps) => {
+  const userId = useSelector((state: UserType) => state._id);
   const [checked, setChecked] = useState(Math.ceil(props.image.score));
 
-  const disabled = props.userId === props.image.authorId;
+  const disabled = userId === props.image.authorId;
 
   const handleRadioChange = (value: number) => {
     if (!disabled) {
-      putScore(props.image._id, props.userId, value)
+      putScore(props.image._id, userId, value)
       setChecked(value);
     }
   };
