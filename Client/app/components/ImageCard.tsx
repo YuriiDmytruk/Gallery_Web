@@ -7,6 +7,7 @@ import { ImageType } from '../types';
 import ImageDeleteButton from './ImageDeleteButton';
 
 interface ImageCardProps {
+  page: string,
   image: ImageType;
 }
 
@@ -26,7 +27,7 @@ const ImageCard = (props: ImageCardProps) => {
         <div className="flex align-center justify-around">
           <h2 className="flex items-center text-xl font-semibold">Author: {props.image.authorName}</h2>
           <ImageRating image={props.image} />
-          <ImageDeleteButton imageId={props.image._id} />
+          {props.page !== "popular" ? <ImageDeleteButton imageId={props.image._id} /> : <></>}
         </div>
       </div>
     </div>
