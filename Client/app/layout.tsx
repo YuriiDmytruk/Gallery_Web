@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import NavBar from './components/NavBar';
 
+import { metadata } from './metadata';
 import { store } from './redux/store';
 import './globals.css';
 

@@ -15,6 +15,7 @@ import { putScore } from './dataManagers/imageScoresDataManager';
 import {
   postUser,
   getUser,
+  getUserFriendsId,
   getFriends,
   searchUser,
   addFriend,
@@ -47,7 +48,6 @@ app.get('/images', async (req: Request, res: Response) => {
   } else {
     result = await getPopularImages(amount);
   }
-
   res.send(result);
 });
 
@@ -84,24 +84,21 @@ app.get('/users', async (req: Request, res: Response) => {
   const search = req.query.search;
   const userId = req.query.userId;
   const key = req.query.key;
-  let friends = req.query.friends;
+  const friends = await getUserFriendsId(userId as string);
 
-  if (friends !== undefined && friends !== '') {
-    if (key !== undefined && key === 'search') {
-      result = await searchUser(
-        search as string,
-        friends as string[],
-        userId as string
-      );
-      res.send(result);
-      return;
-    }
-    friends = JSON.parse(friends.toString()) as string[];
-    result = await getFriends(friends);
+  if (key !== undefined && key === 'search') {
+    result = await searchUser(
+      search as string,
+      friends as string[],
+      userId as string
+    );
     res.send(result);
     return;
   }
-  res.send(null);
+  result = await getFriends(friends as string[]);
+
+  res.send(result);
+  return;
 });
 
 app.patch('/users', async (req: Request, res: Response) => {

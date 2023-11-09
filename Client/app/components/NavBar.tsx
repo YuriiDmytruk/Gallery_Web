@@ -57,7 +57,7 @@ const NavBar = () => {
                 Popular Galery
               </Link>
               <Link
-                href="/friends"
+                href={`/friends/my_friends/${userId}`}
                 className="btn btn-ghost normal-case text-sm"
               >
                 My Friends

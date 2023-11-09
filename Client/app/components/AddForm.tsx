@@ -27,7 +27,7 @@ const AddForm = (props: AddFormProps) => {
   };
 
   return (
-    <dialog id="add_form" className="modal " open>
+    <dialog id="add_form" className="modal bg-black bg-opacity-60" open>
       <div className="modal-box bg-white justify-center items-center">
         <form method="dialog">
           <button

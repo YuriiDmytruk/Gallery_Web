@@ -100,7 +100,7 @@ const putUser = async (user: {
   }
 };
 
-const putScore = async (imageId: string, userId: string, score: number) => {
+const putScore = async (imageId: string, userId: string, score: number): Promise<ResponseType> => {
   try {
     const response = await fetch(URL + 'scores', {
       method: 'PUT',
@@ -127,4 +127,30 @@ const putScore = async (imageId: string, userId: string, score: number) => {
   }
 };
 
-export { getImages, putUser, putScore, postImage, deleteImage };
+const getFriends = async (search: string, userId: string, key: string): Promise<ResponseType> => {
+  try {
+    const response = await fetch(
+      URL +
+        `users/?search=${search}&userId=${userId}&key=${key}`,
+      {
+        method: 'GET',
+        cache: 'no-store',
+      }
+    );
+    if (response.ok) {
+      const data: ResponseType = await response.json();
+      if (data.statusCode === 200) {
+        return data;
+      }
+      console.log(data.errorMessage);
+      return data;
+    } else {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error: any) {
+    console.error('Fetch error:', error.message);
+    throw error;
+  }
+};
+
+export { getImages, putUser, putScore, postImage, deleteImage, getFriends };
