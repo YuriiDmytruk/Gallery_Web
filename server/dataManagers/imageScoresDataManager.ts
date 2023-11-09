@@ -13,6 +13,19 @@ const postImageScore = async (imageId: string): Promise<ResponseType> => {
   }
 };
 
+const deleteScore = async (imageId: string): Promise<ResponseType> => {
+  try{
+    await ImageScores.deleteOne({ imageId: imageId });
+    return {
+      statusCode: 200,
+      value: null,
+      errorMessage: ''
+    }
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 const getAverageImageScore = async (imageId: string): Promise<ResponseType> => {
   try {
     const imageScores = await ImageScores.find({ imageId: imageId });
@@ -82,4 +95,4 @@ const putScore = async ({
   }
 };
 
-export { postImageScore, getAverageImageScore, putScore };
+export { postImageScore, deleteScore, getAverageImageScore, putScore };

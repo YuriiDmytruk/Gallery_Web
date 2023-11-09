@@ -32,4 +32,11 @@ type ImageType = {
   __v: number;
 };
 
-export type { ActionType, UserType, ImageType, ResponseType};
+type ImagePostType = {
+  url: string;
+  authorId: string;
+  authorName: string;
+  description: string;
+}
+
+export type { ActionType, UserType, ImageType, ResponseType, ImagePostType};

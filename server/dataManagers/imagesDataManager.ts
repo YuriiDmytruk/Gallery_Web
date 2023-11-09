@@ -1,6 +1,10 @@
-import Image from '../models/image';
+import Images from '../models/images';
 import { ImageType, ResponseType, MongoImageType } from '../types';
-import { postImageScore, getAverageImageScore } from './imageScoresDataManager';
+import {
+  postImageScore,
+  getAverageImageScore,
+  deleteScore,
+} from './imageScoresDataManager';
 import { getAuthorName } from './usersDataManager';
 import handleError from './utill';
 import { create200Response } from './responseCreators';
@@ -16,7 +20,7 @@ const postImage = async ({
   authorName: string;
   description: string;
 }): Promise<ResponseType> => {
-  const image = new Image({ url, authorId, authorName, description });
+  const image = new Images({ url, authorId, authorName, description });
   try {
     const result = await image.save();
     postImageScore(result.id);
@@ -26,9 +30,23 @@ const postImage = async ({
   }
 };
 
+const deleteImage = async (imageId: string): Promise<ResponseType> => {
+  try {
+    await Images.deleteOne({ _id: imageId });
+    await deleteScore(imageId);
+    return {
+      statusCode: 200,
+      value: null,
+      errorMessage: '',
+    };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
 const getImagesByAuthor = async (authorId: string): Promise<ResponseType> => {
   try {
-    const images = await Image.find({ authorId: authorId });
+    const images = await Images.find({ authorId: authorId });
     const imagesWithScores: ImageType[] = await Promise.all(
       images.map(async (image) => await createImageWithScore(image.toObject()))
     );
@@ -40,7 +58,7 @@ const getImagesByAuthor = async (authorId: string): Promise<ResponseType> => {
 
 const getPopularImages = async (amount: number): Promise<ResponseType> => {
   try {
-    const images = await Image.find({});
+    const images = await Images.find({});
 
     let imagesWithScores: ImageType[] = await Promise.all(
       images.map(async (image) => await createImageWithScore(image.toObject()))
@@ -70,7 +88,7 @@ const getPopularImages = async (amount: number): Promise<ResponseType> => {
 
 const getImageByID = async (id: string): Promise<ResponseType> => {
   try {
-    const image = await Image.findOne({ _id: id });
+    const image = await Images.findOne({ _id: id });
     let imageWithScore = null;
     if (image !== null) {
       imageWithScore = await createImageWithScore(image.toObject());
@@ -102,4 +120,10 @@ const createImageWithScore = async (
   };
 };
 
-export { postImage, getImagesByAuthor, getPopularImages, getImageByID };
+export {
+  postImage,
+  deleteImage,
+  getImagesByAuthor,
+  getPopularImages,
+  getImageByID,
+};

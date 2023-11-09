@@ -7,6 +7,7 @@ const mongoose = require('./connection');
 
 import {
   postImage,
+  deleteImage,
   getImagesByAuthor,
   getPopularImages,
 } from './dataManagers/imagesDataManager';
@@ -53,6 +54,12 @@ app.get('/images', async (req: Request, res: Response) => {
 app.post('/images', async (req: Request, res: Response) => {
   console.log('POST image');
   const result = await postImage({ ...req.body.image });
+  res.send(result);
+});
+
+app.delete('/images', async (req: Request, res: Response) => {
+  console.log('DELETE image');
+  const result = await deleteImage(req.body.imageId);
   res.send(result);
 });
 
