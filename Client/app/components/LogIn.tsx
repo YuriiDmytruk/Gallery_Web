@@ -13,7 +13,7 @@ interface LogInProps {
 
 const LogIn = (props: LogInProps) => {
   const [user, setUser] = useState({
-    email: 'yuriydmytrukr@gmail.com',
+    email: 'roman@gmail.com',
     password: '1111',
   });
   const router = useRouter();
@@ -36,7 +36,7 @@ const LogIn = (props: LogInProps) => {
       <dialog id="log_in_form" className="modal " open>
         <div className="modal-box bg-white justify-center items-center">
           <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-1 top-1">
+            <button onClick={props.closeModal} className="btn btn-sm btn-circle btn-ghost absolute right-1 top-1">
               ✕
             </button>
           </form>

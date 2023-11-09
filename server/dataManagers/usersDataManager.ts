@@ -1,4 +1,4 @@
-import User from '../models/user';
+import Users from '../models/users';
 import handleError from './utill';
 import {
   create200Response,
@@ -16,7 +16,7 @@ const postUser = async ({
   password: string;
   nickName: string;
 }): Promise<ResponseType> => {
-  const user = new User({ email, password, nickName, friends: [] });
+  const user = new Users({ email, password, nickName, friends: [] });
 
   try {
     const result = await user.save();
@@ -34,7 +34,7 @@ const getUser = async ({
   password: string;
 }): Promise<ResponseType> => {
   try {
-    const mongoUser = await User.findOne({ email: email });
+    const mongoUser = await Users.findOne({ email: email });
     if (mongoUser != null) {
       const user = {
         ...mongoUser.toObject(),
@@ -56,7 +56,7 @@ const getUser = async ({
 
 const getAuthorName = async (id: string): Promise<ResponseType> => {
   try {
-    const user = (await User.findOne({ _id: id }))?.toObject();
+    const user = (await Users.findOne({ _id: id }))?.toObject();
     return user
       ? create200Response(user.nickName)
       : create404Response('No user with this ID');
@@ -69,7 +69,7 @@ const getFriends = async (friendsId: string[]): Promise<ResponseType> => {
   try {
     const friendPromises: Promise<UserType | undefined>[] = friendsId.map(
       async (id: string) => {
-        const mongoUser = await User.findOne({ _id: id });
+        const mongoUser = await Users.findOne({ _id: id });
         if (mongoUser != null) {
           const user = {
             ...mongoUser.toObject(),
@@ -101,7 +101,7 @@ const searchUser = async (
   userId: string
 ): Promise<ResponseType> => {
   try {
-    const userMongo = await User.find({});
+    const userMongo = await Users.find({});
     let users: UserType[] = userMongo.map((user) => {
       return { ...user.toObject(), password: '', friends: [] };
     });
@@ -121,14 +121,14 @@ const addFriend = async (
   friendId: string
 ): Promise<ResponseType> => {
   try {
-    const mongoUser = await User.findOne({ _id: userId });
+    const mongoUser = await Users.findOne({ _id: userId });
     const friends = mongoUser
       ?.toObject()
       .friends.map((objectId) => objectId.toString());
     if (!friends?.includes(friendId)) {
       friends?.push(friendId);
     }
-    await User.updateOne(
+    await Users.updateOne(
       { _id: userId },
       { $set: { ...mongoUser?.toObject(), friends: friends } }
     );
@@ -143,13 +143,13 @@ const deleteFriend = async (
   friendId: string
 ): Promise<ResponseType> => {
   try {
-    const mongoUser = await User.findOne({ _id: userId });
+    const mongoUser = await Users.findOne({ _id: userId });
     let friends = mongoUser
       ?.toObject()
       .friends.map((objectId) => objectId.toString());
     if (friends?.includes(friendId)) {
       friends = friends?.filter((id) => id !== friendId);
-      await User.updateOne(
+      await Users.updateOne(
         { _id: userId },
         { $set: { ...mongoUser?.toObject(), friends: friends } }
       );

@@ -29,7 +29,7 @@ const Page = async ({ params }: { params: { userId: string } }) => {
         <div>
           <div className="flex flex-wrap justify-around">
             {images.map((image) => (
-              <ImageCard key={image._id} image={image} />
+              <ImageCard key={image._id} image={image} page={params.userId}/>
             ))}
           </div>
           {params.userId !== 'popular' ? <AddButton /> : <></>}

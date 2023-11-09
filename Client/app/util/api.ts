@@ -1,4 +1,4 @@
-import { ResponseType } from '../types';
+import { ImagePostType, ResponseType } from '../types';
 
 const URL = 'http://localhost:4000/';
 
@@ -11,6 +11,7 @@ const getImages = async (
       URL + `images/?author=${userId}&amount=${amount}`,
       {
         method: 'GET',
+        cache: 'no-store',
       }
     );
     if (response.ok) {
@@ -25,6 +26,48 @@ const getImages = async (
     }
   } catch (error: any) {
     console.error('Fetch error:', error);
+    throw error;
+  }
+};
+
+const postImage = async (image: ImagePostType) => {
+  try {
+    const response = await fetch(URL + 'images', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ image }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error: any) {
+    console.error('Fetch error:', error.message);
+    throw error;
+  }
+};
+
+const deleteImage = async (imageId: string) => {
+  try {
+    const response = await fetch(URL + 'images', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ imageId }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error: any) {
+    console.error('Fetch error:', error.message);
     throw error;
   }
 };
@@ -84,4 +127,4 @@ const putScore = async (imageId: string, userId: string, score: number) => {
   }
 };
 
-export { getImages, putUser, putScore };
+export { getImages, putUser, putScore, postImage, deleteImage };

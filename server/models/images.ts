@@ -23,6 +23,6 @@ const imageShema = new Schema(
   { timestamps: true }
 );
 
-const Image = mongoose.model('Image', imageShema);
+const Images = mongoose.model('Image', imageShema);
 
-export default Image;
+export default Images;
