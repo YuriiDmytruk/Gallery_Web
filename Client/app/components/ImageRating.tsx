@@ -1,13 +1,12 @@
-"use client"
+'use client';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-
 
 import { putScore } from '../util/api';
 import { ImageType, UserType } from '../types';
 
 interface ImageRatingProps {
-    image: ImageType
+  image: ImageType;
 }
 
 const ImageRating: any = (props: ImageRatingProps) => {
@@ -16,7 +15,7 @@ const ImageRating: any = (props: ImageRatingProps) => {
 
   const handleRadioChange = (value: number) => {
     if (!disabled) {
-      putScore(props.image._id, userId, value)
+      putScore(props.image._id, userId, value);
       setChecked(value);
     }
   };

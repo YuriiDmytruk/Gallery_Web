@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { PlusLg } from 'react-bootstrap-icons';
 
