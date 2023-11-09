@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter, usePathname  } from 'next/navigation';
 
@@ -10,16 +10,12 @@ import '../styles/NavBarAnimation.css';
 import { UserType } from '../types';
 import { deleteUser } from '../redux/ducks/user';
 
-interface NavBarProps {
-  isModalOpen: boolean;
-  setIsModalOpen: (value: boolean) => void;
-}
-
-const NavBar = (props: NavBarProps) => {
+const NavBar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname()
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const userId = useSelector((state: UserType) => state._id);
   const active = (pathname !== '/')
 
@@ -29,11 +25,11 @@ const NavBar = (props: NavBarProps) => {
   };
 
   const openModal = () => {
-    props.setIsModalOpen(true);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    props.setIsModalOpen(false);
+    setIsModalOpen(false);
   };
 
   return (
@@ -78,7 +74,7 @@ const NavBar = (props: NavBarProps) => {
           {active ? <span>LogOut</span> : <span>LogIn</span>}
         </div>
       </div>
-      {props.isModalOpen && <LogIn closeModal={closeModal} />}
+      {isModalOpen && <LogIn closeModal={closeModal} />}
     </div>
   );
 };
