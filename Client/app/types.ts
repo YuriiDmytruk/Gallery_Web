@@ -1,11 +1,11 @@
 type ActionType = {
   type: string;
-  user?: UserType;
+  value?: UserType | ImageType | ImageType[] | string;
 };
 
 type ResponseType = {
   statusCode: number;
-  value: ImageType[] | UserType;
+  value: ImageType[] | UserType | ImageType;
   errorMessage: string;
 };
 
@@ -37,6 +37,25 @@ type ImagePostType = {
   authorId: string;
   authorName: string;
   description: string;
-}
+};
 
-export type { ActionType, UserType, ImageType, ResponseType, ImagePostType};
+type UserState = {
+  _id: string;
+  email: string;
+  password: string;
+  nickName: string;
+  friends: string[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  images: ImageType[];
+};
+
+export type {
+  ActionType,
+  UserType,
+  ImageType,
+  ResponseType,
+  ImagePostType,
+  UserState,
+};

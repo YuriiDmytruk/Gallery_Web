@@ -8,7 +8,7 @@ const Home = async () => {
   const images = (await getImages('', '20')).value as ImageType[];
 
   return (
-    <div className="z-0 fixed w-[100%] h-[100%] top-0 left-0">
+    <div className="z-0 w-[100%] h-[100%] top-0 left-0">
       <div className="z-20 fixed w-[100%] h-[100%] bg-black bg-opacity-60"></div>
 
       <div className="w-[60%] h-[50%] fixed top-0 right-0 z-0">
