@@ -160,6 +160,13 @@ const deleteFriend = async (
   }
 };
 
+const getUserFriendsId = async (
+  userId: string
+): Promise<string[] | undefined> => {
+  const mongoUser = await Users.findOne({ _id: userId });
+  return mongoUser?.friends.map((friendId) => friendId.toString());
+};
+
 export {
   postUser,
   getUser,
@@ -168,4 +175,5 @@ export {
   searchUser,
   addFriend,
   deleteFriend,
+  getUserFriendsId,
 };

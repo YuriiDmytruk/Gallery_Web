@@ -33,7 +33,7 @@ const LogIn = (props: LogInProps) => {
 
   return (
     <div>
-      <dialog id="log_in_form" className="modal " open>
+      <dialog id="log_in_form" className="modal bg-black bg-opacity-60" open>
         <div className="modal-box bg-white justify-center items-center">
           <form method="dialog">
             <button onClick={props.closeModal} className="btn btn-sm btn-circle btn-ghost absolute right-1 top-1">

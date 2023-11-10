@@ -32,7 +32,7 @@ const ImageCarousel = (props: ImageCarouselPropsType) => {
   setTimeout(changeImage, props.time);
 
   return (
-    <div className="w-[100%] h-[100%]">
+    <div className={`w-[100%] h-[100%] ${props.images.length === 0 ? 'bg-slate-400' : ''} `}>
       <div
         className={`w-[100%] h-[100%] absolute top-0 right-0 ${
           props.classNames

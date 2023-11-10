@@ -5,7 +5,7 @@ type ActionType = {
 
 type ResponseType = {
   statusCode: number;
-  value: ImageType[] | UserType | ImageType;
+  value: ImageType[] | UserType | ImageType | UserType[];
   errorMessage: string;
 };
 
