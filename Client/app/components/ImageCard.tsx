@@ -18,7 +18,6 @@ const ImageCard = (props: ImageCardProps) => {
         <Image
           src={props.image.url}
           alt={props.image.description}
-          layout="responsive"
           width={500}
           height={500}
         />
