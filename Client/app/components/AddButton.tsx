@@ -4,7 +4,12 @@ import { PlusLg } from 'react-bootstrap-icons';
 
 import AddForm from './AddForm';
 
-const AddButton = () => {
+interface AddButtonProps{
+  userId: string;
+  userNickName: string;
+}
+
+const AddButton = (props: AddButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -23,7 +28,7 @@ const AddButton = () => {
       >
         <PlusLg size={30} />
       </button>
-      {isModalOpen && <AddForm closeModal={closeModal} />}
+      {isModalOpen && <AddForm closeModal={closeModal} userId={props.userId} userNickName={props.userNickName}/>}
     </div>
   );
 };

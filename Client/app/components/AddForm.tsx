@@ -1,28 +1,30 @@
 'use client';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 
-import { UserType } from '../types';
+import { ImageType } from '../types';
 import { postImage } from '../util/api';
+import { addImage } from '../redux/ducks/user';
 
 interface AddFormProps {
+  userId: string;
+  userNickName: string;
   closeModal: () => void;
 }
 
 const AddForm = (props: AddFormProps) => {
-  const { _id, nickName } = useSelector((state: UserType) => state);
   const [image, setImage] = useState({
     url: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D',
     description: 'Some description',
-    authorName: nickName,
-    authorId: _id,
+    authorName: props.userNickName,
+    authorId: props.userId,
   });
-  const router = useRouter()
+  const dispatch = useDispatch();
 
   const onAddClick = async () => {
-    await postImage(image);
-    router.push(`/gallery/${_id}`)
+    const result = await postImage(image);
+    dispatch(addImage(result.value as ImageType));
+    console.log(result.value);
     props.closeModal();
   };
 

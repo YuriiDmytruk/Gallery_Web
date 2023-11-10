@@ -22,9 +22,9 @@ const postImage = async ({
 }): Promise<ResponseType> => {
   const image = new Images({ url, authorId, authorName, description });
   try {
-    const result = await image.save();
-    postImageScore(result.id);
-    return create200Response(null);
+    const result: MongoImageType = (await image.save()).toObject();
+    await postImageScore(result._id.toString());
+    return create200Response(await createImageWithScore(result));
   } catch (error) {
     return handleError(error);
   }

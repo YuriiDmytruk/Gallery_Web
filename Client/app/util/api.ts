@@ -9,7 +9,7 @@ const getImages = async (
 ): Promise<ResponseType> => {
   return await fetchData(URL + `images/?author=${userId}&amount=${amount}`, {
     method: 'GET',
-    cache: 'no-store',
+    cache: 'no-store'
   });
 };
 
