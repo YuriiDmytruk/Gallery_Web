@@ -13,7 +13,7 @@ interface LogInProps {
 
 const LogIn = (props: LogInProps) => {
   const [user, setUser] = useState({
-    email: 'roman@gmail.com',
+    email: 'yuriydmytrukr@gmail.com',
     password: '1111',
   });
   const router = useRouter();
