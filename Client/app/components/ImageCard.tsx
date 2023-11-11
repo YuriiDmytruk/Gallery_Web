@@ -1,10 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 
-import ImageRating from './ImageRating';
+import ImageRating from '@/app/components/ImageRating';
+import ImageDeleteButton from '@/app/components/ImageDeleteButton';
 
-import { ImageType } from '../types';
-import ImageDeleteButton from './ImageDeleteButton';
+import { ImageType } from '@/app/types';
 
 interface ImageCardProps {
   page: string,

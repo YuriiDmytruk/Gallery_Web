@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 
-import { putUser } from '../util/api';
-import { addUser } from '../redux/ducks/user';
-import { UserType } from '../types';
+import { putUser } from '@/app/util/api';
+import { addUser } from '@/app/redux/ducks/user';
+import { UserType } from '@/app/types';
 
 interface LogInProps {
   closeModal: () => void;

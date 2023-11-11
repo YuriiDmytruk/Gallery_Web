@@ -4,11 +4,11 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter, usePathname  } from 'next/navigation';
 
-import LogIn from './LogIn';
+import LogIn from '@/app/components/LogIn';
 
-import '../styles/NavBarAnimation.css';
-import { UserType } from '../types';
-import { deleteUser } from '../redux/ducks/user';
+import '@/app/styles/NavBarAnimation.css';
+import { UserType } from '@/app/types';
+import { deleteUser } from '@/app/redux/ducks/user';
 
 const NavBar = () => {
   const dispatch = useDispatch();

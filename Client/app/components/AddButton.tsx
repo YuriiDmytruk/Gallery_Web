@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { PlusLg } from 'react-bootstrap-icons';
 
-import AddForm from './AddForm';
+import AddForm from '@/app/components/AddForm';
 
 interface AddButtonProps{
   userId: string;

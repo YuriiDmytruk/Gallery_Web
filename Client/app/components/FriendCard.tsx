@@ -2,9 +2,9 @@ import React from 'react';
 
 import ImageCarousel from './ImageCarousel';
 
-import { ImageType, UserType } from '../types';
-import { getImages } from '../util/api';
-import FriendDeleteButton from './FriendDeleteButton';
+import { ImageType, UserType } from '@/app/types';
+import { getImages } from '@/app/util/api';
+import FriendDeleteButton from '@/app/components/FriendDeleteButton';
 
 interface FriendCardProps {
   friend: UserType;

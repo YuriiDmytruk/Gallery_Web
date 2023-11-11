@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ImageType } from '../types';
-import { postImage } from '../util/api';
-import { addImage } from '../redux/ducks/user';
+import { ImageType } from '@/app/types';
+import { postImage } from '@/app/util/api';
+import { addImage } from '@/app/redux/ducks/user';
 
 interface AddFormProps {
   userId: string;

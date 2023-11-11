@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
-import { putScore } from '../util/api';
-import { ImageType, UserType } from '../types';
+import { putScore } from '@/app/util/api';
+import { ImageType, UserType } from '@/app/types';
 
 interface ImageRatingProps {
   image: ImageType;
