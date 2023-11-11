@@ -9,7 +9,7 @@ const getImages = async (
 ): Promise<ResponseType> => {
   return await fetchData(URL + `images/?author=${userId}&amount=${amount}`, {
     method: 'GET',
-    cache: 'no-store'
+    cache: 'no-store',
   });
 };
 
@@ -66,38 +66,26 @@ const putScore = async (
   });
 };
 
+const getFriends = async (
+  search: string,
+  userId: string,
+  key: string
+): Promise<ResponseType> => {
+  return await fetchData(
+    URL + `users/?search=${search}&userId=${userId}&key=${key}`,
+    {
+      method: 'GET',
+      cache: 'no-store',
+    }
+  );
+};
+
 const fetchData = async (
   URL: string,
   fetchParams: any
 ): Promise<ResponseType> => {
   try {
     const response = await fetch(URL, fetchParams);
-    if (response.ok) {
-      const data: ResponseType = await response.json();
-      if (data.statusCode === 200) {
-        return data;
-      }
-      console.log(data.errorMessage);
-      return data;
-    } else {
-      throw new Error('Network response was not ok');
-    }
-  } catch (error: any) {
-    console.error('Fetch error:', error.message);
-    throw error;
-  }
-};
-
-const getFriends = async (search: string, userId: string, key: string): Promise<ResponseType> => {
-  try {
-    const response = await fetch(
-      URL +
-        `users/?search=${search}&userId=${userId}&key=${key}`,
-      {
-        method: 'GET',
-        cache: 'no-store',
-      }
-    );
     if (response.ok) {
       const data: ResponseType = await response.json();
       if (data.statusCode === 200) {

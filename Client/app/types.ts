@@ -1,6 +1,6 @@
 type ActionType = {
   type: string;
-  value?: UserType | ImageType | ImageType[] | string;
+  value?: UserType | UserType[] | ImageType | ImageType[] | string;
 };
 
 type ResponseType = {
@@ -44,7 +44,7 @@ type UserState = {
   email: string;
   password: string;
   nickName: string;
-  friends: string[];
+  friends: UserType[];
   createdAt: string;
   updatedAt: string;
   __v: number;

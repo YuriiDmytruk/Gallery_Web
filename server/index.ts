@@ -79,25 +79,28 @@ app.post('/users', async (req: Request, res: Response) => {
 
 app.get('/users', async (req: Request, res: Response) => {
   console.log('GET users');
-  let result;
+  let result
 
   const search = req.query.search;
   const userId = req.query.userId;
   const key = req.query.key;
-  const friends = await getUserFriendsId(userId as string);
 
-  if (key !== undefined && key === 'search') {
-    result = await searchUser(
-      search as string,
-      friends as string[],
-      userId as string
-    );
-    res.send(result);
-    return;
+  if (userId !== 'undefined') {
+    const friends = await getUserFriendsId(userId as string);
+
+    if (key !== undefined && key === 'search') {
+      result = await searchUser(
+        search as string,
+        friends as string[],
+        userId as string
+      );
+      res.send(result);
+      return;
+    }
+    result = await getFriends(friends as string[]);
   }
-  result = await getFriends(friends as string[]);
-
   res.send(result);
+
   return;
 });
 
