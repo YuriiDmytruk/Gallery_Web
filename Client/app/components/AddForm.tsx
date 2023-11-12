@@ -23,8 +23,9 @@ const AddForm = (props: AddFormProps) => {
 
   const onAddClick = async () => {
     const result = await postImage(image);
-    dispatch(addImage(result.value as ImageType));
-    console.log(result.value);
+    if (result.statusCode === 200) {
+      dispatch(addImage(result.value as ImageType));
+    }
     props.closeModal();
   };
 

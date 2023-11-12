@@ -47,7 +47,6 @@ const deleteImage = async (imageId: string): Promise<ResponseType> => {
 const getImagesByAuthor = async (authorId: string): Promise<ResponseType> => {
   try {
     const images = await Images.find({ authorId: authorId });
-    console.log(images)
     const imagesWithScores: ImageType[] = await Promise.all(
       images.map(async (image) => await createImageWithScore(image.toObject()))
     );

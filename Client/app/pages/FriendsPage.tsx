@@ -31,7 +31,7 @@ const FriendsPage = (props: FriendsPageProps) => {
     <div className="h-full w-full pt-[7%] px-5">
       <div className="flex flex-wrap justify-around">
         {friends.map((friend) => (
-          <FriendCard key={friend._id} friend={friend} />
+          <FriendCard key={friend._id} friend={friend} userId={userId} />
         ))}
       </div>
     </div>

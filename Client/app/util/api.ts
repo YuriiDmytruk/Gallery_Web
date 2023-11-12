@@ -80,6 +80,16 @@ const getFriends = async (
   );
 };
 
+const patchFriend = async (userId: string, friendId: string, key: string) => {
+  return await fetchData(URL + 'users', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId: userId, friendId: friendId, key: key }),
+  });
+};
+
 const fetchData = async (
   URL: string,
   fetchParams: any
@@ -102,4 +112,4 @@ const fetchData = async (
   }
 };
 
-export { getImages, putUser, putScore, postImage, deleteImage, getFriends };
+export { getImages, putUser, putScore, postImage, deleteImage, getFriends, patchFriend };

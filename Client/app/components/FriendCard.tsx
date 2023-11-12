@@ -1,19 +1,23 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 
 import ImageCarousel from '@/app/components/ImageCarousel';
 
 import { ImageType, UserType } from '@/app/types';
-import { getImages } from '@/app/util/api';
+import { getImages, patchFriend } from '@/app/util/api';
+import { deleteFriend } from '@/app/redux/ducks/user';
 
 interface FriendCardProps {
   friend: UserType;
+  userId: string;
 }
 
 const FriendCard = (props: FriendCardProps) => {
   const [images, setImages] = useState<ImageType[]>([]);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -25,13 +29,16 @@ const FriendCard = (props: FriendCardProps) => {
     fetchImages();
   }, [props.friend._id]);
 
-  const onDeleteClick = () => {
-    console.log('Delete friend');
+  const onDeleteClick = async () => {
+    const result = await patchFriend(props.userId, props.friend._id, 'delete');
+    if (result.statusCode === 200) {
+      dispatch(deleteFriend(props.friend._id));
+    }
   };
 
   const onGaleryClick = () => {
-    router.push(`/gallery/${props.friend._id}`)
-  }
+    router.push(`/gallery/${props.friend._id}`);
+  };
 
   return (
     <div className="card card-compact shadow-xl bg-accent h-72 w-[30%] justify-around mb-5">

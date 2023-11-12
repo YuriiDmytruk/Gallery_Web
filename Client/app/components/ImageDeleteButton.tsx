@@ -15,8 +15,10 @@ const ImageDeleteButton = (props: ImageDeleteButtonProps) => {
   const dispatch = useDispatch();
 
   const onDeleteClick = async () => {
-    await deleteImage(props.imageId);
-    dispatch(deleteImageFromState(props.imageId));
+    const result = await deleteImage(props.imageId);
+    if (result.statusCode === 200) {
+      dispatch(deleteImageFromState(props.imageId));
+    }
   };
 
   return (
