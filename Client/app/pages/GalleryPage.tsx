@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 import ImageCard from '@/app/components/ImageCard';
 import AddButton from '@/app/components/AddButton';
@@ -16,12 +15,9 @@ interface GalleryPageProps {
 
 const GalleryPage = (props: GalleryPageProps) => {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const userId = useSelector((state: UserState) => state._id);
-  if (userId === '') {
-    router.push('/');
-  }
+
   const nickName = useSelector((state: UserState) => state.nickName);
   let images = useSelector((state: UserState) => state.images);
 

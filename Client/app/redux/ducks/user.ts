@@ -64,7 +64,7 @@ export const setFriends = (friends: UserType[]): ActionType => {
   return { type: SET_FRIENDS, value: friends };
 };
 
-export const addFriend = (friend: ImageType): ActionType => {
+export const addFriend = (friend: UserType): ActionType => {
   return { type: ADD_FRIEND, value: friend };
 };
 

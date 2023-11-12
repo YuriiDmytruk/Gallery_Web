@@ -16,10 +16,6 @@ const ImageRating: any = (props: ImageRatingProps) => {
   const userId = useSelector((state: UserType) => state._id);
   const [checked, setChecked] = useState(Math.ceil(props.image.score));
 
-  if (userId === '') {
-    router.replace('/');
-  }
-
   const handleRadioChange = (value: number) => {
     if (!disabled) {
       putScore(props.image._id, userId, value);

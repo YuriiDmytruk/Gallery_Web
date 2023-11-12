@@ -7,15 +7,18 @@ import ImageCarousel from '@/app/components/ImageCarousel';
 
 import { ImageType, UserType } from '@/app/types';
 import { getImages, patchFriend } from '@/app/util/api';
-import { deleteFriend } from '@/app/redux/ducks/user';
+import { addFriend, deleteFriend } from '@/app/redux/ducks/user';
 
 interface FriendCardProps {
   friend: UserType;
   userId: string;
+  mod: string;
 }
 
 const FriendCard = (props: FriendCardProps) => {
   const [images, setImages] = useState<ImageType[]>([]);
+
+  const [disableAdd, setDisableAdd] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -33,6 +36,14 @@ const FriendCard = (props: FriendCardProps) => {
     const result = await patchFriend(props.userId, props.friend._id, 'delete');
     if (result.statusCode === 200) {
       dispatch(deleteFriend(props.friend._id));
+    }
+  };
+
+  const onAddClick = async () => {
+    const result = await patchFriend(props.userId, props.friend._id, 'add');
+    if (result.statusCode === 200) {
+      setDisableAdd(true)
+      dispatch(addFriend(props.friend));
     }
   };
 
@@ -54,9 +65,15 @@ const FriendCard = (props: FriendCardProps) => {
           <h2 className="flex items-center text-xl font-semibold">
             Name: {props.friend.nickName}
           </h2>
-          <button className="btn btn-error" onClick={onDeleteClick}>
-            Delete friend
-          </button>
+          {props.mod === 'friend' ? (
+            <button className="btn btn-error" onClick={onDeleteClick}>
+              Delete friend
+            </button>
+          ) : (
+            <button className="btn btn-primary" disabled={disableAdd} onClick={onAddClick}>
+              Add friend
+            </button>
+          )}
           <button className="btn btn-success" onClick={onGaleryClick}>
             Gallery
           </button>
