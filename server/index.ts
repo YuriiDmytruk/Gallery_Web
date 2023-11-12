@@ -30,7 +30,7 @@ const port = 4000;
 app.use(bodyParser.json());
 app.use((req: Request, res: Response, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
@@ -79,25 +79,28 @@ app.post('/users', async (req: Request, res: Response) => {
 
 app.get('/users', async (req: Request, res: Response) => {
   console.log('GET users');
-  let result;
+  let result
 
   const search = req.query.search;
   const userId = req.query.userId;
   const key = req.query.key;
-  const friends = await getUserFriendsId(userId as string);
 
-  if (key !== undefined && key === 'search') {
-    result = await searchUser(
-      search as string,
-      friends as string[],
-      userId as string
-    );
-    res.send(result);
-    return;
+  if (userId !== 'undefined') {
+    const friends = await getUserFriendsId(userId as string);
+
+    if (key !== undefined && key === 'search') {
+      result = await searchUser(
+        search as string,
+        friends as string[],
+        userId as string
+      );
+      res.send(result);
+      return;
+    }
+    result = await getFriends(friends as string[]);
   }
-  result = await getFriends(friends as string[]);
-
   res.send(result);
+
   return;
 });
 

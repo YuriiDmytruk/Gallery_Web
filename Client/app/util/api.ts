@@ -9,7 +9,7 @@ const getImages = async (
 ): Promise<ResponseType> => {
   return await fetchData(URL + `images/?author=${userId}&amount=${amount}`, {
     method: 'GET',
-    cache: 'no-store'
+    cache: 'no-store',
   });
 };
 
@@ -66,6 +66,30 @@ const putScore = async (
   });
 };
 
+const getFriends = async (
+  search: string,
+  userId: string,
+  key: string
+): Promise<ResponseType> => {
+  return await fetchData(
+    URL + `users/?search=${search}&userId=${userId}&key=${key}`,
+    {
+      method: 'GET',
+      cache: 'no-store',
+    }
+  );
+};
+
+const patchFriend = async (userId: string, friendId: string, key: string) => {
+  return await fetchData(URL + 'users', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId: userId, friendId: friendId, key: key }),
+  });
+};
+
 const fetchData = async (
   URL: string,
   fetchParams: any
@@ -88,30 +112,4 @@ const fetchData = async (
   }
 };
 
-const getFriends = async (search: string, userId: string, key: string): Promise<ResponseType> => {
-  try {
-    const response = await fetch(
-      URL +
-        `users/?search=${search}&userId=${userId}&key=${key}`,
-      {
-        method: 'GET',
-        cache: 'no-store',
-      }
-    );
-    if (response.ok) {
-      const data: ResponseType = await response.json();
-      if (data.statusCode === 200) {
-        return data;
-      }
-      console.log(data.errorMessage);
-      return data;
-    } else {
-      throw new Error('Network response was not ok');
-    }
-  } catch (error: any) {
-    console.error('Fetch error:', error.message);
-    throw error;
-  }
-};
-
-export { getImages, putUser, putScore, postImage, deleteImage, getFriends };
+export { getImages, putUser, putScore, postImage, deleteImage, getFriends, patchFriend };

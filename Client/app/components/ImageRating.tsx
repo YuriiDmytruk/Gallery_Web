@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
-import { putScore } from '../util/api';
-import { ImageType, UserType } from '../types';
+import { putScore } from '@/app/util/api';
+import { ImageType, UserType } from '@/app/types';
 
 interface ImageRatingProps {
   image: ImageType;
@@ -15,10 +15,6 @@ const ImageRating: any = (props: ImageRatingProps) => {
 
   const userId = useSelector((state: UserType) => state._id);
   const [checked, setChecked] = useState(Math.ceil(props.image.score));
-
-  if (userId === '') {
-    router.replace('/');
-  }
 
   const handleRadioChange = (value: number) => {
     if (!disabled) {

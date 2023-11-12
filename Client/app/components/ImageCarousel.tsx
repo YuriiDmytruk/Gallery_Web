@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 
-import '../styles/ImageCarousel.css';
-import {getRandomInt} from '../util/util'
+import '@/app/styles/ImageCarousel.css';
+import {getRandomInt} from '@/app/util/util'
 
 interface ImageCarouselPropsType {
   images: string[];

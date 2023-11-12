@@ -1,14 +1,14 @@
 'use client';
 import Link from 'next/link';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter, usePathname  } from 'next/navigation';
 
-import LogIn from './LogIn';
+import LogIn from '@/app/components/LogIn';
 
-import '../styles/NavBarAnimation.css';
-import { UserType } from '../types';
-import { deleteUser } from '../redux/ducks/user';
+import '@/app/styles/NavBarAnimation.css';
+import { UserType } from '@/app/types';
+import { deleteUser } from '@/app/redux/ducks/user';
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,12 @@ const NavBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userId = useSelector((state: UserType) => state._id);
   const active = (pathname !== '/')
+
+  useEffect(() => {
+    if(userId === ''){
+      router.push('/')
+    }
+  }, [userId, router])
 
   const logOut = () => {
     dispatch(deleteUser());
@@ -61,6 +67,12 @@ const NavBar = () => {
                 className="btn btn-ghost normal-case text-sm"
               >
                 My Friends
+              </Link>
+              <Link
+                href={`/friends/find_friends/${userId}`}
+                className="btn btn-ghost normal-case text-sm"
+              >
+                Find Friends
               </Link>
             </div>
           ) : (
