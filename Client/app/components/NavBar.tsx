@@ -1,22 +1,27 @@
 'use client';
 import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useRouter, usePathname  } from 'next/navigation';
 
 import LogIn from '@/app/components/LogIn';
 
 import '@/app/styles/NavBarAnimation.css';
 import { UserType } from '@/app/types';
-import { deleteUser } from '@/app/redux/ducks/user';
+import Profile from './Profile';
 
-const NavBar = () => {
-  const dispatch = useDispatch();
+interface NavBarProps {
+  setTheme: (value: string) => void;
+}
+
+const NavBar = (props: NavBarProps) => {
   const router = useRouter();
   const pathname = usePathname()
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
   const userId = useSelector((state: UserType) => state._id);
+  const userNickName = useSelector((state: UserType) => state.nickName);
   const active = (pathname !== '/')
 
   useEffect(() => {
@@ -25,17 +30,20 @@ const NavBar = () => {
     }
   }, [userId, router])
 
-  const logOut = () => {
-    dispatch(deleteUser());
-    router.replace('/');
+  const openLogIn = () => {
+    setIsLoginOpen(true);
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const closeLogIn = () => {
+    setIsLoginOpen(false);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const openProfile = () => {
+    setIsProfileOpen(true);
+  };
+
+  const closeProfile = () => {
+    setIsProfileOpen(false);
   };
 
   return (
@@ -81,12 +89,13 @@ const NavBar = () => {
         </div>
         <div
           className="btn btn-ghost normal-case text-sm"
-          onClick={active ? logOut : openModal}
+          onClick={active ? openProfile : openLogIn}
         >
-          {active ? <span>LogOut</span> : <span>LogIn</span>}
+          {active ? <span>{userNickName}</span> : <span>LogIn</span>}
         </div>
       </div>
-      {isModalOpen && <LogIn closeModal={closeModal} />}
+      {isLoginOpen && <LogIn closeModal={closeLogIn} />}
+      {isProfileOpen && <Profile closeModal={closeProfile} setTheme={props.setTheme}/>}
     </div>
   );
 };

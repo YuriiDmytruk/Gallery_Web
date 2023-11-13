@@ -26,7 +26,7 @@ const config: Config = {
           neutral: '#fbfcd2',
         },
       },
-      'light',
+      'corporate',
       'dark',
       'cupcake',
     ],

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import { Inter } from 'next/font/google';
 import { Provider } from 'react-redux';
 
@@ -16,11 +16,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [theme, setTheme] = useState('custom')
   return (
-    <html lang="en" data-theme="custom" className="bg-neutral">
+    <html lang="en" data-theme={theme} className="bg-neutral">
       <body className={inter.className}>
         <Provider store={store}>
-          <NavBar />
+          <NavBar setTheme={setTheme}/>
           {children}
         </Provider>
       </body>
