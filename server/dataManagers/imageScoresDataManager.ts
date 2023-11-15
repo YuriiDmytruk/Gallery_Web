@@ -95,4 +95,6 @@ const putScore = async ({
   }
 };
 
+
+
 export { postImageScore, deleteScore, getAverageImageScore, putScore };

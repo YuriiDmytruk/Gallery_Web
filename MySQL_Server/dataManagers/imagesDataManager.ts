@@ -3,7 +3,10 @@ import { Connection } from 'mysql2';
 import { ImageType, ResponseType } from '../types';
 import { create200Response, create404Response } from './responseCreators';
 
-const getImagesByAuthor = (connection: Connection, authorId: number): Promise<ResponseType> => {
+const getImagesByAuthor = (
+  connection: Connection,
+  authorId: number
+): Promise<ResponseType> => {
   return new Promise((resolve, reject) => {
     connection.query(
       `CALL getImagesByAuthor(${authorId})`,
@@ -18,7 +21,10 @@ const getImagesByAuthor = (connection: Connection, authorId: number): Promise<Re
   });
 };
 
-const getImagesPopular = (connection: Connection, amount: number): Promise<ResponseType> => {
+const getImagesPopular = (
+  connection: Connection,
+  amount: number
+): Promise<ResponseType> => {
   return new Promise((resolve, reject) => {
     connection.query(
       `CALL getImagesPopular(${amount})`,
@@ -64,7 +70,10 @@ const addImage = (
   });
 };
 
-const deleteImage = (connection: Connection, imageId: number): Promise<ResponseType> => {
+const deleteImage = (
+  connection: Connection,
+  imageId: number
+): Promise<ResponseType> => {
   return new Promise((resolve, reject) => {
     connection.query(
       `SELECT deleteImage(${imageId}) as res`,
@@ -72,10 +81,9 @@ const deleteImage = (connection: Connection, imageId: number): Promise<ResponseT
         if (err) {
           reject(create404Response(err));
         } else {
-          if(result[0].res === 1){
-          resolve(create200Response(null));
-          }
-          else{
+          if (result[0].res === 1) {
+            resolve(create200Response(null));
+          } else {
             resolve(create404Response('No image with this ID'));
           }
         }
@@ -84,4 +92,30 @@ const deleteImage = (connection: Connection, imageId: number): Promise<ResponseT
   });
 };
 
-export { getImagesByAuthor, getImagesPopular, addImage, deleteImage };
+const scoreImage = (
+  connection: Connection,
+  imageId: string,
+  userId: string,
+  score: number
+): Promise<ResponseType> => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT scoreImage(${score}, ${imageId}, ${userId}) as res`,
+      (err: any, result: any) => {
+        if (err) {
+          reject(create404Response(err));
+        } else {
+          resolve(create200Response(null));
+        }
+      }
+    );
+  });
+};
+
+export {
+  getImagesByAuthor,
+  getImagesPopular,
+  addImage,
+  deleteImage,
+  scoreImage,
+};
