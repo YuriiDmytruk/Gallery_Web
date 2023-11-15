@@ -4,7 +4,7 @@ import {
   create200Response,
   create403Response,
   create404Response,
-} from './responseCreators';
+} from '../../MySQL_Server/dataManagers/responseCreators';
 import { ResponseType, UserType } from '../types';
 
 const postUser = async ({

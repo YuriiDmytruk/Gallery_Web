@@ -7,7 +7,7 @@ import {
 } from './imageScoresDataManager';
 import { getAuthorName } from './usersDataManager';
 import handleError from './utill';
-import { create200Response } from './responseCreators';
+import { create200Response } from '../../MySQL_Server/dataManagers/responseCreators';
 
 const postImage = async ({
   url,

@@ -1,6 +1,6 @@
 import { Error } from 'mongoose';
 
-import { create404Response, create500Response } from './responseCreators';
+import { create404Response, create500Response } from '../../MySQL_Server/dataManagers/responseCreators';
 
 const handleError = (error: any) => {
   if (error instanceof Error) {

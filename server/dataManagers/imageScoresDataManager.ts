@@ -1,7 +1,7 @@
 import ImageScores from '../models/imageScores';
 import { ResponseType } from '../types';
 import handleError from './utill';
-import { create200Response, create404Response } from './responseCreators';
+import { create200Response, create404Response } from '../../MySQL_Server/dataManagers/responseCreators';
 
 const postImageScore = async (imageId: string): Promise<ResponseType> => {
   const imageScore = new ImageScores({ imageId, userScores: [] });
