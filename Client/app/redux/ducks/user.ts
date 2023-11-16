@@ -28,8 +28,10 @@ export const userReducer = (state = defaultState, action: ActionType) => {
     case DELETE_USER:
       return { ...defaultState };
     case SET_IMAGES:
+      console.log(action.value)
       return { ...state, images: action.value as ImageType[] };
     case ADD_IMAGE:
+      console.log(state)
       return {
         ...state,
         images: state.images.concat(action.value as ImageType),

@@ -27,7 +27,7 @@ const GalleryPage = (props: GalleryPageProps) => {
     }
   }, [dispatch, images.length, props.images]);
 
-  if (props.userId === 'popular' || props.userId !== userId) {
+  if (props.userId === 'popular' || props.userId !== userId.toString()) {
     images = props.images;
   }
 

@@ -46,6 +46,7 @@ app.get('/images', async (req: Request, res: Response) => {
       console.log('POPULAR');
       const result = await getImagesPopular(connection, amount);
       res.send(result);
+      console.log('---------------');
     } catch {
       res.send(create500Response());
     }
@@ -75,7 +76,6 @@ app.post('/images', async (req: Request, res: Response) => {
       image.description as string,
       image.url as string
     );
-    console.log(result);
     res.send(result);
     console.log('---------------');
   } catch {
@@ -138,7 +138,8 @@ app.get('/users', async (req: Request, res: Response) => {
 
   if (key === 'search') {
     try {
-      const result = await searchUsers(connection, search as string);
+      console.log(userId)
+      const result = await searchUsers(connection, search as string, userId as string);
       res.send(result);
       console.log('---------------');
     } catch (error) {
