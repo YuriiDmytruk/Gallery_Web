@@ -138,7 +138,6 @@ app.get('/users', async (req: Request, res: Response) => {
 
   if (key === 'search') {
     try {
-      console.log(userId)
       const result = await searchUsers(connection, search as string, userId as string);
       res.send(result);
       console.log('---------------');

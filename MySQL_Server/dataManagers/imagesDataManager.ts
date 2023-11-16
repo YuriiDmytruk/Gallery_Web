@@ -99,7 +99,6 @@ const deleteImage = (
     connection.query(
       `SELECT deleteImage(${imageId}) as res`,
       (err: any, result: any) => {
-        console.log(result)
         if (err) {
           reject(create404Response(err));
         } else {

@@ -103,7 +103,6 @@ const fetchData = async (
     const response = await fetch(URL, fetchParams);
     if (response.ok) {
       const data: ResponseType = await response.json();
-      console.log({...data})
       if (data.statusCode === 200) {
         return data;
       }
