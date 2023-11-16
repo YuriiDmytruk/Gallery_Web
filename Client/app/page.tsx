@@ -6,6 +6,7 @@ import { ImageType } from './types';
 
 const Home = async () => {
   const images = (await getImages('', '20')).value as ImageType[];
+  console.log(images)
 
   return (
     <div className="z-0 w-[100%] h-[100%] top-0 left-0">

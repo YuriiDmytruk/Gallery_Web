@@ -22,7 +22,7 @@ const getUser = (
           if (result[0][0].message !== undefined) {
             resolve(create403Response());
           }
-          resolve(create200Response(result[0]));
+          resolve(create200Response({...result[0][0], _id: result[0][0]._id.toString() }));
         }
       }
     );
@@ -58,11 +58,12 @@ const addUser = (
 
 const searchUsers = (
   connection: Connection,
-  search: string
+  search: string,
+  userId: string
 ): Promise<ResponseType> => {
   return new Promise((resolve, reject) => {
     connection.query(
-      `CALL searchUsers('${search}')`,
+      `CALL searchUsers('${search}', ${userId})`,
       (err: any, result: any) => {
         if (err) {
           reject(create404Response(err));

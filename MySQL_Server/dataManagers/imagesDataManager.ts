@@ -14,7 +14,17 @@ const getImagesByAuthor = (
         if (err) {
           reject(create404Response(err));
         } else {
-          resolve(create200Response(result[0]));
+          resolve(
+            create200Response(
+              result[0].map((image: ImageType) => {
+                return {
+                  ...image,
+                  _id: image._id.toString(),
+                  authorId: image.authorId.toString(),
+                };
+              })
+            )
+          );
         }
       }
     );
@@ -32,7 +42,17 @@ const getImagesPopular = (
         if (err) {
           reject(create404Response(err));
         } else {
-          resolve(create200Response(result[0]));
+          resolve(
+            create200Response(
+              result[0].map((image: ImageType) => {
+                return {
+                  ...image,
+                  _id: image._id.toString(),
+                  authorId: image.authorId.toString(),
+                };
+              })
+            )
+          );
         }
       }
     );
@@ -62,6 +82,7 @@ const addImage = (
               authorName: authorName,
               url: url,
               description: description,
+              score: '0.0000',
             } as ImageType)
           );
         }
@@ -78,6 +99,7 @@ const deleteImage = (
     connection.query(
       `SELECT deleteImage(${imageId}) as res`,
       (err: any, result: any) => {
+        console.log(result)
         if (err) {
           reject(create404Response(err));
         } else {

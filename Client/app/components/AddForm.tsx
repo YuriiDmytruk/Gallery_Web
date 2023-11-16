@@ -23,6 +23,8 @@ const AddForm = (props: AddFormProps) => {
 
   const onAddClick = async () => {
     const result = await postImage(image);
+    console.log('add')
+    console.log(result)
     if (result.statusCode === 200) {
       dispatch(addImage(result.value as ImageType));
     }

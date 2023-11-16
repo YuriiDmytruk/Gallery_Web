@@ -19,7 +19,7 @@ type ImageType = {
   description: string;
   createdAt: string;
   updatedAt: string;
-  score: number | null;
+  score: number | null | string;
 };
 
 type UserType = {
